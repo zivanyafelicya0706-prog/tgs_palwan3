@@ -1,0 +1,25 @@
+name: Membuat EXE C++
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Mengambil kode
+        uses: actions/checkout@v4
+
+      - name: Menyiapkan compiler
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compile C++
+        run: cl /EHsc main.cpp /Fe:program.exe
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: program-exe
+          path: program.exe
